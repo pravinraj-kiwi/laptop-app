@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="PursuitAlert.Client.Old.States.CurrentState"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:prism="http://prismlibrary.com/"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="110" />
+            <ColumnDefinition Width="110" />
+            <ColumnDefinition Width="110" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <StackPanel.ToolTip>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Device: " />
+                    <TextBlock Text="{Binding SerialNumber}" />
+                </StackPanel>
+            </StackPanel.ToolTip>
+            <fa:ImageAwesome Icon="{Binding Icon}" Foreground="{Binding IconForeground}" Height="12" Margin="0 0 5 0" />
+            <TextBlock VerticalAlignment="Center" Style="{StaticResource Small}" Text="{Binding State}" Foreground="{StaticResource LightBrush}" />
+        </StackPanel>
+        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <fa:ImageAwesome Icon="{Binding GPSFixIcon}" Foreground="{Binding GPSFixIconForeground}" Height="12" Margin="0 0 5 0" HorizontalAlignment="Center" />
+            <TextBlock VerticalAlignment="Center" Style="{StaticResource Small}" Text="{Binding GPSState}" Foreground="{StaticResource LightBrush}" HorizontalAlignment="Center" />
+        </StackPanel>
+        <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <fa:ImageAwesome Icon="{Binding PatrolIcon}" Foreground="{Binding PatrolIconForeground}" Height="12" Margin="0 0 5 0" HorizontalAlignment="Right" />
+            <TextBlock VerticalAlignment="Center" Style="{StaticResource Small}" Text="{Binding PatrolState}" Foreground="{StaticResource LightBrush}" HorizontalAlignment="Right" />
+        </StackPanel>
+    </Grid>
+</UserControl>

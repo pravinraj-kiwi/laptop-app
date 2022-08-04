@@ -1,0 +1,33 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PursuitAlert.Client.Old.Properties" GeneratedClassName="MqttSettings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MqttEndpoint" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Stack" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ThingName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="AuthenticationUrl" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://bb2.auth.pursuitalert.net/v1/authenticateVehicle/</Value>
+    </Setting>
+    <Setting Name="CertificatesDirectory" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">certificates</Value>
+    </Setting>
+    <Setting Name="RootCertificateUrl" Type="(Web Service URL)" Scope="User">
+      <Value Profile="(Default)">https://www.websecurity.digicert.com/content/dam/websitesecurity/digitalassets/desktop/pdfs/roots/VeriSign-Class%203-Public-Primary-Certification-Authority-G5.pem</Value>
+    </Setting>
+    <Setting Name="DownloadRootCertificate" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="PortNumber" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">8883</Value>
+    </Setting>
+    <Setting Name="UseATSEndpoint" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

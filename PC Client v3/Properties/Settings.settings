@@ -1,0 +1,66 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PursuitAlert.Client.Old.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="LogDirectoryPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">%LOCALAPPDATA%\PursuitAlert\logs</Value>
+    </Setting>
+    <Setting Name="PortalURL" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://console.dev.pursuitalert.net</Value>
+    </Setting>
+    <Setting Name="DebugMode" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="DemoMode" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ConfigurationFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">%LOCALAPPDATA%\PursuitAlert\defaultconfig.json</Value>
+    </Setting>
+    <Setting Name="ConfigurationURL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">/Vehicles/configuration/</Value>
+    </Setting>
+    <Setting Name="APIBaseUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://data.dev.pursuitalert.com/v1/graphql</Value>
+    </Setting>
+    <Setting Name="ConfigurationLastUpdated" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ConfigurationIntervalCheckInMS" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">3600000</Value>
+    </Setting>
+    <Setting Name="AccessKeyId" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">15ngz/7wJH9uHXrn3KZn+6ukfDVOjlEt</Value>
+    </Setting>
+    <Setting Name="SecretAccessKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">ceCDlZGoKIWg7p/B1//k6X8LR6ZRxliQyKOqdLjkzi+Xh3isTeEWzwiybBfJSi1f</Value>
+    </Setting>
+    <Setting Name="Stage" Type="System.String" Scope="User">
+      <Value Profile="(Default)">dev</Value>
+    </Setting>
+    <Setting Name="LogRecipient" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">allen.brooks@kopisusa.com</Value>
+    </Setting>
+    <Setting Name="IoTBrokerEndpoint" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://a8hm4iivf7xj1-ats.iot.us-east-1.amazonaws.com</Value>
+    </Setting>
+    <Setting Name="UnitId" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="OrganizationCode" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Officer" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="SecondaryOfficer" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Notes" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="FirstRun" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

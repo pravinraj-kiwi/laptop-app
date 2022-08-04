@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <?define PursuitAlert.Client_TargetDir=$(var.PursuitAlert.Client.TargetDir)?>
+  <?define ClientVersion=!(bind.FileVersion.PursuitAlert.exe)?>
+  <Product Id="2C9E4645-B117-4658-8FC3-E2442BA57548" Name="Pursuit Alert" Language="1033" Version="$(var.ClientVersion)" Manufacturer="Kopis, LLC" UpgradeCode="6d0edbca-dee7-4ac5-9afc-e201fe022141">
+    <Package Description="Version: $(var.ClientVersion)" InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of Pursuit Alert is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <Property Id="WixShellExecTarget" Value="[#PursuitAlert.exe]" />
+    <Property Id="ORGCODE"></Property>
+    <Property Id="OFFICERNAME"></Property>
+    <Property Id="VEHICLENAME"></Property>
+    <CustomAction Id="LaunchApplication" BinaryKey="WixCA" DllEntry="WixShellExec" Impersonate="yes" />
+
+    <Feature Id="ProductFeature" Title="Pursuit Alert" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+      <ComponentGroupRef Id="Resources_Sounds_files" />
+      <ComponentRef Id="CreateCertificatesDirectory" />
+      <ComponentRef Id="DesktopShortcut" />
+      <ComponentRef Id="RunOnStartup" />
+    </Feature>
+
+    <InstallExecuteSequence>
+      <Custom Action="LaunchApplication" After="InstallFinalize"></Custom>
+    </InstallExecuteSequence>
+
+    <UIRef Id="MyCustomUI"></UIRef>
+  </Product>
+
+  <Fragment>
+    <!-- Auto-start via Registry -->
+    <Component Id="RunOnStartup" Directory="INSTALLFOLDER" Guid="66c4e623-de5d-4c17-98d7-93241e5f56d4">
+      <RegistryValue Id="PursuitAlert.rst" Root="HKCU" Action="write" Key="Software\Microsoft\Windows\CurrentVersion\Run" Name="Pursuit Alert Client" Value="[#PursuitAlert.exe]" Type="string" />
+    </Component>
+  </Fragment>
+
+  <Fragment>
+    <Icon Id="pursuitalert.ico" SourceFile="$(var.PursuitAlert.Client.TargetDir)\Resources\pursuitalert.ico" />
+    <Component Id="DesktopShortcut" Directory="INSTALLFOLDER" Guid="*">
+
+      <RegistryValue Id="RegShortcutDesktop" Root="HKCU" Key="Software\PursuitAlert\PursuitAlert" Name="DesktopSC" Value="1" Type="integer" KeyPath="yes" />
+
+      <Shortcut Id="desktopSC" Target="[INSTALLFOLDER]PursuitAlert.exe" WorkingDirectory="INSTALLFOLDER" Icon="pursuitalert.ico" Directory="DesktopFolder" Name="Pursuit Alert" Advertise="no" />
+    </Component>
+  </Fragment>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="Pursuit Alert">
+          <Directory Id="Resources" Name="Resources">
+            <Directory Id="Resources_Sounds" Name="Sounds" />
+          </Directory>
+          <Directory Id="certificates" Name="certificates">
+            <Component Id="CreateCertificatesDirectory" Guid="b683da0d-2dba-423e-ae2b-fca6ba225e28" SharedDllRefCount="no" KeyPath="no" NeverOverwrite="no" Permanent="no" Transitive="no" Win64="no" Location="either">
+              <CreateFolder>
+                <util:PermissionEx User="Users" GenericAll="yes" />
+              </CreateFolder>
+              <RemoveFile Id="RemoveCertificateFilesOnUninstall" Directory="certificates" Name="*.*" On="uninstall" />
+              <RemoveFolder Id="certificates" On="uninstall" />
+            </Component>
+          </Directory>
+        </Directory>
+      </Directory>
+      <Directory Id="DesktopFolder" Name="Desktop" />
+    </Directory>
+  </Fragment>
+  <Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <Component Id='Settings' Guid='a1b12405-729e-4742-8204-be6dab79e46d'>
+        <File Id='XmlSettings' Name='registration.xml' DiskId='1' Source='registration.xml' Vital='yes' />
+        <util:XmlFile Id='XmlOrgCode' File='[INSTALLFOLDER]registration.xml' Value='[ORGCODE]'
+          Action='createElement' Name='ORGCODE' ElementPath='//registration' Sequence='1' />
+        <util:XmlFile Id='XmlOfficerName' File='[INSTALLFOLDER]registration.xml' Value='[OFFICERNAME]'
+          Action='createElement' Name='OFFICERNAME' ElementPath='//registration' Sequence='2' />
+        <util:XmlFile Id='XmlVehicleName' File='[INSTALLFOLDER]registration.xml' Value='[VEHICLENAME]'
+          Action='createElement' Name='VEHICLENAME' ElementPath='//registration' Sequence='3' />
+      </Component>
+      <Component Id="Prism.DryIoc.Wpf.dll" Guid="d3f78b54-84aa-441d-987d-0863be704cbf">
+        <File Id="Prism.DryIoc.Wpf.dll" Name="Prism.DryIoc.Wpf.dll" Source="$(var.PursuitAlert.Client_TargetDir)Prism.DryIoc.Wpf.dll" />
+      </Component>
+      <Component Id="Prism.Wpf.dll" Guid="b87bbfc9-2204-49ff-824d-e6ef0facfb54">
+        <File Id="Prism.Wpf.dll" Name="Prism.Wpf.dll" Source="$(var.PursuitAlert.Client_TargetDir)Prism.Wpf.dll" />
+      </Component>
+      <Component Id="FontAwesome.WPF.dll" Guid="1636b1a2-8ad4-4935-b1af-b07c97fdc5bd">
+        <File Id="FontAwesome.WPF.dll" Name="FontAwesome.WPF.dll" Source="$(var.PursuitAlert.Client_TargetDir)FontAwesome.WPF.dll" />
+      </Component>
+      <Component Id="Prism.dll" Guid="49ff1f8f-04a9-4816-a83b-cb58bc39b270">
+        <File Id="Prism.dll" Name="Prism.dll" Source="$(var.PursuitAlert.Client_TargetDir)Prism.dll" />
+      </Component>
+      <Component Id="Serilog.dll" Guid="7d1b9b3a-b055-482a-846f-c74aeb62c7a7">
+        <File Id="Serilog.dll" Name="Serilog.dll" Source="$(var.PursuitAlert.Client_TargetDir)Serilog.dll" />
+      </Component>
+      <Component Id="Serilog.Sinks.Debug.dll" Guid="aecc330f-cbdd-4f19-8ea7-234d167830b9">
+        <File Id="Serilog.Sinks.Debug.dll" Name="Serilog.Sinks.Debug.dll" Source="$(var.PursuitAlert.Client_TargetDir)Serilog.Sinks.Debug.dll" />
+      </Component>
+      <Component Id="Newtonsoft.Json.dll" Guid="c7887127-402c-4623-8ad0-300a0bb1df50">
+        <File Id="Newtonsoft.Json.dll" Name="Newtonsoft.Json.dll" Source="$(var.PursuitAlert.Client_TargetDir)Newtonsoft.Json.dll" />
+      </Component>
+      <Component Id="Serilog.Sinks.File.dll" Guid="b6a21119-cdf4-4123-b5cf-d7ca3130db77">
+        <File Id="Serilog.Sinks.File.dll" Name="Serilog.Sinks.File.dll" Source="$(var.PursuitAlert.Client_TargetDir)Serilog.Sinks.File.dll" />
+      </Component>
+      <Component Id="DryIoc.dll" Guid="9bef97b9-ae0e-49a4-8bb0-2d438e5a46e0">
+        <File Id="DryIoc.dll" Name="DryIoc.dll" Source="$(var.PursuitAlert.Client_TargetDir)DryIoc.dll" />
+      </Component>
+      <Component Id="System.ValueTuple.dll" Guid="95679516-bfee-45a2-921e-702de06e54db">
+        <File Id="System.ValueTuple.dll" Name="System.ValueTuple.dll" Source="$(var.PursuitAlert.Client_TargetDir)System.ValueTuple.dll" />
+      </Component>
+      <Component Id="NmeaParser.dll" Guid="0b1db52c-8667-4f79-a280-952bd1385636">
+        <File Id="NmeaParser.dll" Name="NmeaParser.dll" Source="$(var.PursuitAlert.Client_TargetDir)NmeaParser.dll" />
+      </Component>
+      <Component Id="AWSSDK.IotData.dll" Guid="4d28a3cd-cfd1-41fa-a67e-7bb7706fc076">
+        <File Id="AWSSDK.IotData.dll" Name="AWSSDK.IotData.dll" Source="$(var.PursuitAlert.Client_TargetDir)AWSSDK.IotData.dll" />
+      </Component>
+      <Component Id="AWSSDK.Core.dll" Guid="976c165b-dedb-4814-b08f-a4d220b83bd8">
+        <File Id="AWSSDK.Core.dll" Name="AWSSDK.Core.dll" Source="$(var.PursuitAlert.Client_TargetDir)AWSSDK.Core.dll" />
+      </Component>
+      <Component Id="Polly.dll" Guid="91391373-31ea-4cce-a662-a8cbdc438ba2">
+        <File Id="Polly.dll" Name="Polly.dll" Source="$(var.PursuitAlert.Client_TargetDir)Polly.dll" />
+      </Component>
+      <Component Id="AWSSDK.CognitoIdentityProvider.dll" Guid="84066015-0e55-4756-a2be-db2c88f6e4cb">
+        <File Id="AWSSDK.CognitoIdentityProvider.dll" Name="AWSSDK.CognitoIdentityProvider.dll" Source="$(var.PursuitAlert.Client_TargetDir)AWSSDK.CognitoIdentityProvider.dll" />
+      </Component>
+      <Component Id="AWSSDK.SimpleSystemsManagement.dll" Guid="d71cd1e3-a221-4906-a151-4cb062454b44">
+        <File Id="AWSSDK.SimpleSystemsManagement.dll" Name="AWSSDK.SimpleSystemsManagement.dll" Source="$(var.PursuitAlert.Client_TargetDir)AWSSDK.SimpleSystemsManagement.dll" />
+      </Component>
+      <Component Id="System.Buffers.dll" Guid="4470a948-5291-4876-b449-e33864ee51f4">
+        <File Id="System.Buffers.dll" Name="System.Buffers.dll" Source="$(var.PursuitAlert.Client_TargetDir)System.Buffers.dll" />
+      </Component>
+      <Component Id="System.Numerics.Vectors.dll" Guid="cdff904a-f9f0-45f8-90ba-d29648e059ce">
+        <File Id="System.Numerics.Vectors.dll" Name="System.Numerics.Vectors.dll" Source="$(var.PursuitAlert.Client_TargetDir)System.Numerics.Vectors.dll" />
+      </Component>
+      <Component Id="System.Net.WebSockets.Client.Managed.dll" Guid="e597c277-e42b-46aa-b343-c2d32292171c">
+        <File Id="System.Net.WebSockets.Client.Managed.dll" Name="System.Net.WebSockets.Client.Managed.dll" Source="$(var.PursuitAlert.Client_TargetDir)System.Net.WebSockets.Client.Managed.dll" />
+      </Component>
+      <Component Id="System.Runtime.CompilerServices.Unsafe.dll" Guid="6f24df81-1de4-4df2-8486-7b4fd2f35db7">
+        <File Id="System.Runtime.CompilerServices.Unsafe.dll" Name="System.Runtime.CompilerServices.Unsafe.dll" Source="$(var.PursuitAlert.Client_TargetDir)System.Runtime.CompilerServices.Unsafe.dll" />
+      </Component>
+      <Component Id="System.Threading.Tasks.Extensions.dll" Guid="ba6a8ce5-705a-444f-8c35-d11bace1748f">
+        <File Id="System.Threading.Tasks.Extensions.dll" Name="System.Threading.Tasks.Extensions.dll" Source="$(var.PursuitAlert.Client_TargetDir)System.Threading.Tasks.Extensions.dll" />
+      </Component>
+      <Component Id="GraphQL.Primitives.dll" Guid="4ab50e4c-6883-4897-b6a3-57c0c272c52a">
+        <File Id="GraphQL.Primitives.dll" Name="GraphQL.Primitives.dll" Source="$(var.PursuitAlert.Client_TargetDir)GraphQL.Primitives.dll" />
+      </Component>
+      <Component Id="System.Reactive.dll" Guid="e2bab41c-85b2-4c23-a4a5-009bd42a51b0">
+        <File Id="System.Reactive.dll" Name="System.Reactive.dll" Source="$(var.PursuitAlert.Client_TargetDir)System.Reactive.dll" />
+      </Component>
+      <Component Id="GraphQL.Client.Abstractions.Websocket.dll" Guid="0bc114af-4b6b-471e-b139-ddb9e1125102">
+        <File Id="GraphQL.Client.Abstractions.Websocket.dll" Name="GraphQL.Client.Abstractions.Websocket.dll" Source="$(var.PursuitAlert.Client_TargetDir)GraphQL.Client.Abstractions.Websocket.dll" />
+      </Component>
+      <Component Id="Microsoft.Xaml.Behaviors.dll" Guid="282a9db9-dcad-426a-9aba-3a8f4026c293">
+        <File Id="Microsoft.Xaml.Behaviors.dll" Name="Microsoft.Xaml.Behaviors.dll" Source="$(var.PursuitAlert.Client_TargetDir)Microsoft.Xaml.Behaviors.dll" />
+      </Component>
+      <Component Id="GraphQL.Client.Abstractions.dll" Guid="35ab3acf-47a0-405a-a923-ab129d7de9b8">
+        <File Id="GraphQL.Client.Abstractions.dll" Name="GraphQL.Client.Abstractions.dll" Source="$(var.PursuitAlert.Client_TargetDir)GraphQL.Client.Abstractions.dll" />
+      </Component>
+      <Component Id="GraphQL.Client.dll" Guid="396e2334-3995-4652-b069-5ef46dde1553">
+        <File Id="GraphQL.Client.dll" Name="GraphQL.Client.dll" Source="$(var.PursuitAlert.Client_TargetDir)GraphQL.Client.dll" />
+      </Component>
+      <Component Id="AWSSDK.IoT.dll" Guid="368e4321-0100-4324-a9a5-b8823782308e">
+        <File Id="AWSSDK.IoT.dll" Name="AWSSDK.IoT.dll" Source="$(var.PursuitAlert.Client_TargetDir)AWSSDK.IoT.dll" />
+      </Component>
+      <Component Id="CalcBinding.dll" Guid="97426732-2782-4acd-87d2-884e79603e17">
+        <File Id="CalcBinding.dll" Name="CalcBinding.dll" Source="$(var.PursuitAlert.Client_TargetDir)CalcBinding.dll" />
+      </Component>
+      <Component Id="DynamicExpresso.Core.dll" Guid="a0bdbdb0-7131-46ba-bd6b-64c19edd2985">
+        <File Id="DynamicExpresso.Core.dll" Name="DynamicExpresso.Core.dll" Source="$(var.PursuitAlert.Client_TargetDir)DynamicExpresso.Core.dll" />
+      </Component>
+      <Component Id="GraphQL.Client.Serializer.Newtonsoft.dll" Guid="2518ea49-8156-44c4-a526-409284042f91">
+        <File Id="GraphQL.Client.Serializer.Newtonsoft.dll" Name="GraphQL.Client.Serializer.Newtonsoft.dll" Source="$(var.PursuitAlert.Client_TargetDir)GraphQL.Client.Serializer.Newtonsoft.dll" />
+      </Component>
+      <Component Id="PursuitAlert.exe" Guid="591e19ba-dc12-4f25-81fb-42bfd53ce880">
+        <File Id="PursuitAlert.exe" Name="PursuitAlert.exe" Source="$(var.PursuitAlert.Client_TargetDir)PursuitAlert.exe" />
+      </Component>
+      <Component Id="PursuitAlert.exe.config" Guid="1d0e48e8-0986-4709-ba74-7b0b55b8b371">
+        <File Id="PursuitAlert.exe.config" Name="PursuitAlert.exe.config" Source="$(var.PursuitAlert.Client_TargetDir)PursuitAlert.exe.config" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="Resources_Sounds_files" Directory="Resources_Sounds">
+      <Component Id="Resources_Sounds_Disengage.wav" Guid="8d2d5902-6d53-4c1c-a98a-71bc5d9b2800">
+        <File Id="Resources_Sounds_Disengage.wav" Name="Disengage.wav" Source="$(var.PursuitAlert.Client_TargetDir)Resources\Sounds\Disengage.wav" />
+      </Component>
+      <Component Id="Resources_Sounds_Engage.wav" Guid="a3cee80b-c63b-4b24-bd92-f30726732f7a">
+        <File Id="Resources_Sounds_Engage.wav" Name="Engage.wav" Source="$(var.PursuitAlert.Client_TargetDir)Resources\Sounds\Engage.wav" />
+      </Component>
+      <Component Id="Resources_Sounds_PinDrop.wav" Guid="2e6f94c7-58b6-4431-bb14-4398e1640479">
+        <File Id="Resources_Sounds_PinDrop.wav" Name="PinDrop.wav" Source="$(var.PursuitAlert.Client_TargetDir)Resources\Sounds\PinDrop.wav" />
+      </Component>
+      <Component Id="Resources_Sounds_Success.wav" Guid="c373b935-be69-4244-b488-85caae57d8e1">
+        <File Id="Resources_Sounds_Success.wav" Name="Success.wav" Source="$(var.PursuitAlert.Client_TargetDir)Resources\Sounds\Success.wav" />
+      </Component>
+      <Component Id="Resources_Sounds_Warning.wav" Guid="c9266258-e089-47d8-b1a3-b62f2ad156fe">
+        <File Id="Resources_Sounds_Warning.wav" Name="Warning.wav" Source="$(var.PursuitAlert.Client_TargetDir)Resources\Sounds\Warning.wav" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>

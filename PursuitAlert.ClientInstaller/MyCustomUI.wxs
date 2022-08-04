@@ -1,0 +1,45 @@
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+    <UI Id="MyCustomUI">
+      <Property Id="WIXUI_INSTALLDIR" Value="TARGETDIR" />
+      <Property Id="WixUI_Mode" Value="Custom" />
+
+      <TextStyle Id="WixUI_Font_Normal" FaceName="Tahoma" Size="8" />
+      <TextStyle Id="WixUI_Font_Bigger" FaceName="Tahoma" Size="9" Bold="yes" />
+      <TextStyle Id="WixUI_Font_Title"  FaceName="Tahoma" Size="9" Bold="yes" />
+
+      <Property Id="DefaultUIFont" Value="WixUI_Font_Normal" />
+
+      <DialogRef Id="ProgressDlg" />
+      <DialogRef Id="ErrorDlg" />
+      <DialogRef Id="FilesInUse" />
+      <DialogRef Id="FatalError" />
+      <DialogRef Id="UserExit" />
+
+      <Publish Dialog="ExitDialog" Control="Finish" Event="EndDialog" Value="Return" Order="999">1</Publish>
+      <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="UserRegistrationDlg" Order="2"></Publish>
+
+      <Dialog Id="UserRegistrationDlg" Width="370" Height="270" Title="[ProductName] [Setup]" NoMinimize="yes">
+        <Control Id="OrganizationCode" Type="Text" X="45" Y="43" Width="100" Height="15" TabSkip="no" Text="&amp;Organization Code:" />
+        <Control Id="OrganizationCodeEdit" Type="Edit" X="45" Y="55" Width="220" Height="18" Property="ORGCODE" Text="{80}" />
+
+        <Control Id="OfficerName" Type="Text" X="45" Y="80" Width="100" Height="15" TabSkip="no" Text="&amp;Officer Name:" />
+        <Control Id="OfficerNameEdit" Type="Edit" X="45" Y="92" Width="220" Height="18" Property="OFFICERNAME" Text="{80}" />
+
+        <Control Id="VehicleName" Type="Text" X="45" Y="117" Width="100" Height="15" TabSkip="no" Text="&amp;Vehicle Name:" />
+        <Control Id="VehicleNameEdit" Type="Edit" X="45" Y="129" Width="220" Height="18" Property="VEHICLENAME" Text="{80}" />
+
+        <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.WixUINext)">
+          <Publish Event="EndDialog" Value="Return" />
+        </Control>
+        <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">
+          <Publish Event="SpawnDialog" Value="CancelDlg" />
+        </Control>
+        <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Disabled="no" Text="!(loc.WixUIBack)">
+          <Publish Event="NewDialog" Value="WelcomeDlg" />
+        </Control>
+      </Dialog>
+    </UI>
+    <UIRef Id="WixUI_Common" />
+  </Fragment>
+</Wix>

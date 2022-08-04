@@ -1,0 +1,394 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{19A2A352-E5F7-44FE-A136-4B89198986E5}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PursuitAlert.Client</RootNamespace>
+    <AssemblyName>PursuitAlert</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+    <ShouldCreateLogs>True</ShouldCreateLogs>
+    <AdvancedSettingsExpanded>False</AdvancedSettingsExpanded>
+    <UpdateAssemblyVersion>False</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
+    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+    <AssemblyVersionSettings>
+    </AssemblyVersionSettings>
+    <UpdatePackageVersion>False</UpdatePackageVersion>
+    <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
+    <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>pursuitalert.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>signingkey.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="Dialogs\SettingsDialog\SettingsDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Colors\Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Styles\GlobalStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Dialogs\SettingsDialog\DeviceSettingsChangedEvent.cs" />
+    <Compile Include="Dialogs\SettingsDialog\SettingsDialog.xaml.cs">
+      <DependentUpon>SettingsDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\SettingsDialog\SettingsDialogViewModel.cs" />
+    <Compile Include="Events\AuthenticationExtendedEvent.cs" />
+    <Compile Include="Events\Payloads\UIMessage.cs" />
+    <Compile Include="Events\SystemSleepEvent.cs" />
+    <Compile Include="Events\SystemWakeEvent.cs" />
+    <Compile Include="Infrastructure\API\Errors\VehicleExistsException.cs" />
+    <Compile Include="Infrastructure\API\Models\Asset.cs" />
+    <Compile Include="Infrastructure\API\Models\AssetDevice.cs" />
+    <Compile Include="Infrastructure\API\Models\AssetDeviceList.cs" />
+    <Compile Include="Infrastructure\API\Models\AssetList.cs" />
+    <Compile Include="Infrastructure\API\Models\InsertAssetsOne.cs" />
+    <Compile Include="Infrastructure\API\Models\InsertNodesOne.cs" />
+    <Compile Include="Infrastructure\API\Models\Node.cs" />
+    <Compile Include="Infrastructure\API\Models\NodeList.cs" />
+    <Compile Include="Infrastructure\API\Models\Returning.cs" />
+    <Compile Include="Infrastructure\API\Models\RowCountResponse.cs" />
+    <Compile Include="Infrastructure\API\Models\UpdatedAssetDevice.cs" />
+    <Compile Include="Infrastructure\API\Models\UpdatedDevice.cs" />
+    <Compile Include="Infrastructure\API\Models\Vehicle.cs" />
+    <Compile Include="Infrastructure\API\Models\VehicleList.cs" />
+    <Compile Include="Infrastructure\API\Mutations\AssetDevices.cs" />
+    <Compile Include="Infrastructure\API\Mutations\Assets.cs" />
+    <Compile Include="Infrastructure\API\Mutations\Nodes.cs" />
+    <Compile Include="Infrastructure\API\Queries\AssetDevices.cs" />
+    <Compile Include="Infrastructure\API\Queries\Assets.cs" />
+    <Compile Include="Infrastructure\API\Queries\Nodes.cs" />
+    <Compile Include="Infrastructure\API\Queries\Vehicles.cs" />
+    <Compile Include="Infrastructure\Email\EmailService.cs" />
+    <Compile Include="Infrastructure\Email\IEmailService.cs" />
+    <Compile Include="Infrastructure\Email\MailMessageExtensions.cs" />
+    <Compile Include="Infrastructure\SSMService\ISSMService.cs" />
+    <Compile Include="Infrastructure\SSMService\SSMService.cs" />
+    <Compile Include="Properties\DeviceConnectionSettings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>DeviceConnectionSettings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Icons.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Icons.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Sounds.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Sounds.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\OrganizationSettings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>OrganizationSettings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\DefaultConfiguration.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DefaultConfiguration.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Events\ApplicationExitEvent.cs" />
+    <Compile Include="Infrastructure\API\APIService.cs" />
+    <Compile Include="Infrastructure\API\IAPIService.cs" />
+    <Compile Include="Infrastructure\IoTData\IIoTDataService.cs" />
+    <Compile Include="Infrastructure\IoTData\IoTDataService.cs" />
+    <Compile Include="Infrastructure\IoTManagement\IIoTManagementService.cs" />
+    <Compile Include="Infrastructure\IoTManagement\IoTManagementService.cs" />
+    <Compile Include="Infrastructure\Tokens\ITokenService.cs" />
+    <Compile Include="Infrastructure\Tokens\TokenService.cs" />
+    <Compile Include="Model\Mode.cs" />
+    <Compile Include="Model\PayloadKind.cs" />
+    <Compile Include="Properties\Statistics.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Statistics.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Colors\BrushNames.cs" />
+    <Compile Include="Resources\Utilities\CaseConverter.cs" />
+    <Compile Include="Properties\Secrets.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Secrets.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Utilities\TaskExtensions.cs" />
+    <Compile Include="Services\Confguration\ConfigurationService.cs" />
+    <Compile Include="Services\Confguration\IConfigurationService.cs" />
+    <Compile Include="Services\Device\Errors\DeviceReadException.cs" />
+    <Compile Include="Services\Device\Errors\DeviceWriteException.cs" />
+    <Compile Include="Services\Device\Events\ButtonPressedEvent.cs" />
+    <Compile Include="Services\Device\Events\CoordinatesReceivedEvent.cs" />
+    <Compile Include="Services\Device\Events\DeviceErrorEvent.cs" />
+    <Compile Include="Services\Device\Events\EventPayloads\UnmappedButtonPressedEventPayload.cs" />
+    <Compile Include="Services\Device\Events\GPSSignalAcquiredEvent.cs" />
+    <Compile Include="Services\Device\Events\GPSSignalLostEvent.cs" />
+    <Compile Include="Services\Device\Events\SwitchStatusReceivedEvent.cs" />
+    <Compile Include="Services\Device\Events\UnmappedButtonPressedEvent.cs" />
+    <Compile Include="Services\Device\LED\LEDState.cs" />
+    <Compile Include="Services\Device\Payloads\CoordinatesPayload.cs" />
+    <Compile Include="Services\Device\Payloads\SwitchStatusPayload.cs" />
+    <Compile Include="Services\Device\Utilities\ComPortNames.cs" />
+    <Compile Include="Services\Device\Connection\DeviceConnectionMonitorService.cs" />
+    <Compile Include="Services\Device\DeviceService.cs" />
+    <Compile Include="Services\Device\Events\DeviceConnectedEvent.cs" />
+    <Compile Include="Services\Device\Events\DeviceDisconnectedEvent.cs" />
+    <Compile Include="Services\Device\Connection\IDeviceConnectionMonitorService.cs" />
+    <Compile Include="Services\Device\IDeviceService.cs" />
+    <Compile Include="Services\Device\LED\ILEDService.cs" />
+    <Compile Include="Services\Device\Payloads\IPayloadService.cs" />
+    <Compile Include="Services\Device\LED\LEDService.cs" />
+    <Compile Include="Services\Device\Payloads\PayloadService.cs" />
+    <Compile Include="Services\GPS\CalculationService.cs" />
+    <Compile Include="Services\GPS\Events\VehicleMovingEvent.cs" />
+    <Compile Include="Services\GPS\Events\VehicleStationaryEvent.cs" />
+    <Compile Include="Services\GPS\ICalculationService.cs" />
+    <Compile Include="Services\GPS\UnitOfLength.cs" />
+    <Compile Include="Services\GPS\VehicleStatus.cs" />
+    <Compile Include="Services\Modes\Events\DelayedModeCanceledEvent.cs" />
+    <Compile Include="Services\Modes\Events\DelayedModeEngagedEvent.cs" />
+    <Compile Include="Services\Modes\Events\DelayedModeTimerTickEvent.cs" />
+    <Compile Include="Services\Modes\Events\EventPayloads\DelayedModeTimerTickEventPayload.cs" />
+    <Compile Include="Services\Modes\Events\EventPayloads\ModeChangeEventPayload.cs" />
+    <Compile Include="Services\Modes\Events\ModeChangeEvent.cs" />
+    <Compile Include="Services\Modes\Events\PinDroppedEvent.cs" />
+    <Compile Include="Services\Modes\IModeService.cs" />
+    <Compile Include="Services\Modes\JurisdictionConfiguration.cs" />
+    <Compile Include="Services\Modes\Mode.cs" />
+    <Compile Include="Services\Modes\ModeChangeType.cs" />
+    <Compile Include="Services\Modes\ModeService.cs" />
+    <Compile Include="Services\Modes\PayloadKind.cs" />
+    <Compile Include="Services\Security\EncryptionService.cs" />
+    <Compile Include="Services\Security\IEncryptionService.cs" />
+    <Compile Include="Services\Sounds\ISoundPlayerService.cs" />
+    <Compile Include="Services\Sounds\SoundPlayerService.cs" />
+    <Compile Include="Services\GPS\Coordinates.cs" />
+    <Compile Include="Services\GPS\CoordinatesPayloadExtensions.cs" />
+    <Compile Include="Services\Telemetry\DoubleExtensions.cs" />
+    <Compile Include="Services\Telemetry\Events\NetworkConnectedEvent.cs" />
+    <Compile Include="Services\Telemetry\Events\NoNetworkConnectionEvent.cs" />
+    <Compile Include="Services\Telemetry\Events\PatrolEndedEvent.cs" />
+    <Compile Include="Services\Telemetry\Events\PatrolStartedEvent.cs" />
+    <Compile Include="Services\Telemetry\ITelemetryService.cs" />
+    <Compile Include="Services\Telemetry\SignalBuilder.cs" />
+    <Compile Include="Services\Telemetry\TelemetryService.cs" />
+    <Compile Include="Properties\VehicleSettings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>VehicleSettings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\States.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>States.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="Views\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\DefaultConfiguration.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DefaultConfiguration.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Icons.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Icons.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Sounds.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Sounds.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\States.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>States.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\DeviceConnectionSettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>DeviceConnectionSettings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Properties\OrganizationSettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>OrganizationSettings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Properties\Statistics.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Statistics.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Resources\defaultConfig.json" />
+    <None Include="Properties\VehicleSettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>VehicleSettings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Properties\Secrets.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Secrets.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="signingkey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.CognitoIdentityProvider">
+      <Version>3.5.0.41</Version>
+    </PackageReference>
+    <PackageReference Include="AWSSDK.IoT">
+      <Version>3.5.6</Version>
+    </PackageReference>
+    <PackageReference Include="AWSSDK.IotData">
+      <Version>3.5.0.41</Version>
+    </PackageReference>
+    <PackageReference Include="AWSSDK.SimpleSystemsManagement">
+      <Version>3.5.5.5</Version>
+    </PackageReference>
+    <PackageReference Include="CalcBinding">
+      <Version>2.5.2</Version>
+    </PackageReference>
+    <PackageReference Include="FontAwesome.WPF">
+      <Version>4.7.0.9</Version>
+    </PackageReference>
+    <PackageReference Include="GraphQL.Client">
+      <Version>3.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="GraphQL.Client.Serializer.Newtonsoft">
+      <Version>3.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="Polly">
+      <Version>7.2.1</Version>
+    </PackageReference>
+    <PackageReference Include="Prism.DryIoc" Version="8.0.0.1909" />
+    <PackageReference Include="Serilog">
+      <Version>2.10.0</Version>
+    </PackageReference>
+    <PackageReference Include="Serilog.Sinks.Debug">
+      <Version>1.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Serilog.Sinks.EventLog">
+      <Version>3.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="Serilog.Sinks.File">
+      <Version>4.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="SharpGIS.NmeaParser">
+      <Version>2.1.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\pursuitalert.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Resource Include="Resources\Icons\pursuitalert.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="pursuitalert.ico" />
+    <Content Include="Resources\Sounds\Disengage.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sounds\Engage.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sounds\PinDrop.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sounds\Success.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sounds\Warning.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
