@@ -36,6 +36,11 @@ jobs:
         with:
           dotnet-version: 6.x.x
 
+      - name: Install netfx-4.8-devpack
+        shell: powershell
+        run: |
+          install netfx-4.8-devpack
+
     # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
       - name: Setup MSBuild.exe
         uses: microsoft/setup-msbuild@v1.1
