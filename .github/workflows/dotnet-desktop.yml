@@ -52,5 +52,5 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"pravinraj-kiwi_laptop-app" /o:"pravinraj-kiwi" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-          MSBuild.exe /t:Rebuild
+          MSBuild.exe "\pursuit-alert-laptop-app\PC Client v3.sln" /t:Rebuild
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
