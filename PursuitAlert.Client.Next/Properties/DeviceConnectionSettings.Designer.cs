@@ -12,7 +12,7 @@ namespace PursuitAlert.Client.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
     internal sealed partial class DeviceConnectionSettings : global::System.Configuration.ApplicationSettingsBase {
         
         private static DeviceConnectionSettings defaultInstance = ((DeviceConnectionSettings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new DeviceConnectionSettings())));
