@@ -37,16 +37,7 @@ jobs:
       - name: Install .NET Core
         uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: 6.x.x
-      
-      - name: Setup .NET build dependencies
-        # You may pin to the exact commit or the version.
-        # uses: timheuer/bootstrap-dotnet@abc2197370dc01e5fc234630d32ca8aa5469623d
-        uses: timheuer/bootstrap-dotnet@v1
-        with:
-        # What .NET SDK version to use
-          dotnet-version: 4.6.8
-    
+          dotnet-version: 4.6.x      
                   
     # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
       - name: Setup MSBuild.exe
