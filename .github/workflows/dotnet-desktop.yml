@@ -35,15 +35,9 @@ jobs:
           # Install the .NET Core workload
           
       - name: Install .NET Core
-        uses: actions/setup-dotnet@v2
+        uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '5.x.x'
-        
-      - name: Setup NuGet.exe for use with actions
-      # You may pin to the exact commit or the version.
-      # uses: NuGet/setup-nuget@b2bc17b761a1d88cab755a776c7922eb26eefbfa
-        uses: NuGet/setup-nuget@v1.0.6
-      
+          dotnet-version: '4.6.x'
                             
     # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
       - name: Setup MSBuild.exe
