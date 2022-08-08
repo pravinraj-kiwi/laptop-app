@@ -1,4 +1,5 @@
 name: .NET
+
 on:
   push:
     branches: [ "main" ]
@@ -54,6 +55,6 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner.MSBuild.exe begin /k:"pravinraj-kiwi_laptop-app" /o:"pravinraj-kiwi" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-           MSBuild.exe /t:Rebuild
-          .\.sonar\scanner\dotnet-sonarscanner.MSBuild.exe end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+          dotnet .\.sonar\scanner\dotnet-sonarscanner begin /k:"pravinraj-kiwi_laptop-app" /o:"pravinraj-kiwi" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+          dotnet MSBuild.exe /t:Rebuild
+          dotnet .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
